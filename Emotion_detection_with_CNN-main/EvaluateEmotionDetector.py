@@ -1,4 +1,3 @@
-
 import numpy as np
 from keras.models import model_from_json
 import matplotlib.pyplot as plt
@@ -23,7 +22,7 @@ test_data_gen = ImageDataGenerator(rescale=1./255)
 
 # Preprocess all test images
 test_generator = test_data_gen.flow_from_directory(
-        'data/test',
+        'test',
         target_size=(48, 48),
         batch_size=64,
         color_mode="grayscale",
@@ -48,7 +47,3 @@ plt.show()
 # Classification report
 print("-----------------------------------------------------------------")
 print(classification_report(test_generator.classes, predictions.argmax(axis=1)))
-
-
-
-

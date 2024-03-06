@@ -50,7 +50,7 @@ def detect_faces_with_mtcnn(image):
         face = image_np[bounding_box[1]:bounding_box[1] + bounding_box[3], bounding_box[0]:bounding_box[0] + bounding_box[2]]
         emotion_text = classify_emotion(face)
         cv2.rectangle(image_np, (bounding_box[0], bounding_box[1]), (bounding_box[0] + bounding_box[2], bounding_box[1] + bounding_box[3]), (0, 155, 255), 2)
-        cv2.putText(image_np, f"{emotion_text}", (bounding_box[0], bounding_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.3, (36,255,12), 2)
+        cv2.putText(image_np, f"{emotion_text}", (bounding_box[0], bounding_box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (36,255,12), 2)
     return Image.fromarray(image_np)
 
 def detect_faces(image, method):

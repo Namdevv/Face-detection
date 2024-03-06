@@ -1,5 +1,3 @@
-
-# import required packages
 import cv2
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten
@@ -12,7 +10,7 @@ validation_data_gen = ImageDataGenerator(rescale=1./255)
 
 # Preprocess all test images
 train_generator = train_data_gen.flow_from_directory(
-        'data/train',
+        'train',
         target_size=(48, 48),
         batch_size=64,
         color_mode="grayscale",
@@ -20,7 +18,7 @@ train_generator = train_data_gen.flow_from_directory(
 
 # Preprocess all train images
 validation_generator = validation_data_gen.flow_from_directory(
-        'data/test',
+        'test',
         target_size=(48, 48),
         batch_size=64,
         color_mode="grayscale",
@@ -46,8 +44,9 @@ emotion_model.add(Dropout(0.5))
 emotion_model.add(Dense(7, activation='softmax'))
 
 cv2.ocl.setUseOpenCL(False)
+optimizer = Adam(learning_rate=0.0001)
+emotion_model.compile(loss='categorical_crossentropy', metrics=['accuracy'])
 
-emotion_model.compile(loss='categorical_crossentropy', optimizer=Adam(lr=0.0001, decay=1e-6), metrics=['accuracy'])
 
 # Train the neural network/model
 emotion_model_info = emotion_model.fit_generator(
@@ -64,4 +63,3 @@ with open("emotion_model.json", "w") as json_file:
 
 # save trained model weight in .h5 file
 emotion_model.save_weights('emotion_model.h5')
-
